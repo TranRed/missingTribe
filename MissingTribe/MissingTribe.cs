@@ -21,68 +21,81 @@ namespace MissingTribe
         {
             _overlay = overlay;
             _overlay.showMissingTribe(Overlay.dontShow);
+            if (Core.Game != null)
+            {
+                if (Core.Game.CurrentGameMode == GameMode.Battlegrounds && Core.Game.GetTurnNumber() >= 1)
+                {
+                    MissingTribe.showMissingTribe();
+                }
+            }
+            
         }
         internal static void TurnStart(ActivePlayer player)
         {
-           //tribes are not available via BattlegroundUtils before turn one (tested via OnUpdate)
+            //tribes are not available via BattlegroundUtils before turn one (tested via OnUpdate)
             if (Core.Game.CurrentGameMode == GameMode.Battlegrounds && Core.Game.GetTurnNumber() == 1)
             {
-                bool murlocsBanned = true;
-                bool demonsBanned = true;
-                bool mechsBanned = true;
-                bool beastsBanned = true;
-                bool piratesBanned = true;
-                bool dragonsBanned = true;
-                var tribes = BattlegroundsUtils.GetAvailableRaces(Core.Game.CurrentGameStats.GameId);
-                foreach (var tribe in tribes)
+                showMissingTribe();
+            }
+        }
+
+        private static void showMissingTribe()
+        {
+            bool murlocsBanned = true;
+            bool demonsBanned = true;
+            bool mechsBanned = true;
+            bool beastsBanned = true;
+            bool piratesBanned = true;
+            bool dragonsBanned = true;
+            var tribes = BattlegroundsUtils.GetAvailableRaces(Core.Game.CurrentGameStats.GameId);
+            foreach (var tribe in tribes)
+            {
+
+                switch (tribe)
                 {
+                    case Race.MURLOC:
+                        murlocsBanned = false;
+                        break;
+                    case Race.DEMON:
+                        demonsBanned = false;
+                        break;
+                    case Race.MECHANICAL:
+                        mechsBanned = false;
+                        break;
+                    case Race.BEAST:
+                        beastsBanned = false;
+                        break;
+                    case Race.PIRATE:
+                        piratesBanned = false;
+                        break;
+                    case Race.DRAGON:
+                        dragonsBanned = false;
+                        break;
+                }
 
-                    switch (tribe)
-                    {
-                        case Race.MURLOC:
-                            murlocsBanned = false;
-                            break;
-                        case Race.DEMON:
-                            demonsBanned = false;
-                            break;
-                        case Race.MECHANICAL:
-                            mechsBanned = false;
-                            break;
-                        case Race.BEAST:
-                            beastsBanned = false;
-                            break;
-                        case Race.PIRATE:
-                            piratesBanned = false;
-                            break;
-                        case Race.DRAGON:
-                            dragonsBanned = false;
-                            break;
-                    }
-
-                    if (murlocsBanned)
-                    {
-                        _overlay.showMissingTribe(Overlay.noMurlocs);
-                    }
-                    else if (demonsBanned == true)
-                    {
-                        _overlay.showMissingTribe(Overlay.noDemons);
-                    }
-                    else if (mechsBanned == true)
-                    {
-                        _overlay.showMissingTribe(Overlay.noMechs);
-                    }
-                    else if (beastsBanned == true)
-                    {
-                        _overlay.showMissingTribe(Overlay.noBeasts);
-                    }
-                    else if (piratesBanned == true)
-                    {
-                        _overlay.showMissingTribe(Overlay.noPirates);
-                    }
-                    else if (dragonsBanned == true)
-                    {
-                        _overlay.showMissingTribe(Overlay.noDragons);
-                    }
+                if (murlocsBanned)
+                {
+                    _overlay.showMissingTribe(Overlay.noMurlocs);
+                }
+                else if (demonsBanned == true)
+                {
+                    _overlay.showMissingTribe(Overlay.noDemons);
+                }
+                else if (mechsBanned == true)
+                {
+                    _overlay.showMissingTribe(Overlay.noMechs);
+                }
+                else if (beastsBanned == true)
+                {
+                    _overlay.showMissingTribe(Overlay.noBeasts);
+                }
+                else if (piratesBanned == true)
+                {
+                    _overlay.showMissingTribe(Overlay.noPirates);
+                }
+                else if (dragonsBanned == true)
+                {
+                    _overlay.showMissingTribe(Overlay.noDragons);
                 }
             }
         }
@@ -98,6 +111,7 @@ namespace MissingTribe
 
             // Triggered upon startup and when the user ticks the plugin on
             GameEvents.OnTurnStart.Add(MissingTribe.TurnStart);
+            GameEvents.OnInMenu.Add(MissingTribe.InMenu);
         }
 
         public void OnUnload()
