@@ -5,6 +5,7 @@ using Hearthstone_Deck_Tracker.API;
 using Hearthstone_Deck_Tracker.Enums;
 using Hearthstone_Deck_Tracker.Hearthstone;
 using HearthDb.Enums;
+using System.Diagnostics;
 
 namespace MissingTribe
 {
@@ -25,7 +26,7 @@ namespace MissingTribe
             {
                 if (Core.Game.CurrentGameMode == GameMode.Battlegrounds && Core.Game.GetTurnNumber() >= 1)
                 {
-                    MissingTribe.showMissingTribe();
+                    showMissingTribe();
                 }
             }
             
@@ -118,6 +119,7 @@ namespace MissingTribe
         {
             // Triggered when the user unticks the plugin, however, HDT does not completely unload the plugin.
             // see https://git.io/vxEcH
+            Core.OverlayCanvas.Children.Remove(_overlay);
         }
 
         public void OnButtonPress()
@@ -138,7 +140,7 @@ namespace MissingTribe
 
         public string Author => "TranRed";
 
-        public Version Version => new Version(0, 0, 1);
+        public Version Version => new Version(0, 2, 0);
 
         public MenuItem MenuItem => null;
 
