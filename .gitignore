@@ -1,0 +1,8 @@
+# ignore debug builds
+*Debug*
+
+#ignore C# .suo file
+*.suo
+
+#ignore installed visual studio packages for github
+*packages*

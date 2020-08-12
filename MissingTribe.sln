@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30330.147
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MissingTribe", "MissingTribe\MissingTribe.csproj", "{299EEBAB-B89B-4B12-9188-710BD765A6B6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{53FC1444-7381-4D77-B275-5126EAF7FC07}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{299EEBAB-B89B-4B12-9188-710BD765A6B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{299EEBAB-B89B-4B12-9188-710BD765A6B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{299EEBAB-B89B-4B12-9188-710BD765A6B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{299EEBAB-B89B-4B12-9188-710BD765A6B6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7F287454-346F-446C-849E-F08B253D625E}
+	EndGlobalSection
+EndGlobal
