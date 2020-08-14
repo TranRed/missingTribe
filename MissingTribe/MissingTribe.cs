@@ -5,7 +5,6 @@ using Hearthstone_Deck_Tracker.API;
 using Hearthstone_Deck_Tracker.Enums;
 using Hearthstone_Deck_Tracker.Hearthstone;
 using HearthDb.Enums;
-using System.Diagnostics;
 
 namespace MissingTribe
 {
@@ -26,7 +25,7 @@ namespace MissingTribe
             {
                 if (Core.Game.CurrentGameMode == GameMode.Battlegrounds && Core.Game.GetTurnNumber() >= 1)
                 {
-                    showMissingTribe();
+                    _showMissingTribe();
                 }
             }
             
@@ -36,18 +35,35 @@ namespace MissingTribe
             //tribes are not available via BattlegroundUtils before turn one (tested via OnUpdate)
             if (Core.Game.CurrentGameMode == GameMode.Battlegrounds && Core.Game.GetTurnNumber() == 1)
             {
-                showMissingTribe();
+                _showMissingTribe();
             }
         }
 
-        private static void showMissingTribe()
+        internal static void OnUpdate()
         {
+            if (Core.Game != null)
+            {
+                if (Core.Game.CurrentGameMode == GameMode.Battlegrounds && Core.Game.GetTurnNumber() >= 1)
+                {
+                    if (Core.OverlayCanvas.ActualWidth != _overlay.overlayWidth)
+                    {
+                        _overlay.overlayWidth = Core.OverlayCanvas.ActualWidth;
+                        _showMissingTribe();
+                    }
+                }
+            }
+        }
+
+        private static void _showMissingTribe()
+        {
+
             bool murlocsBanned = true;
             bool demonsBanned = true;
             bool mechsBanned = true;
             bool beastsBanned = true;
             bool piratesBanned = true;
             bool dragonsBanned = true;
+
             var tribes = BattlegroundsUtils.GetAvailableRaces(Core.Game.CurrentGameStats.GameId);
             foreach (var tribe in tribes)
             {
@@ -106,7 +122,7 @@ namespace MissingTribe
         private Overlay _overlay;
         public void OnLoad()
         {
-            _overlay = new Overlay();
+            _overlay = new Overlay(Core.OverlayCanvas.ActualWidth);
             Core.OverlayCanvas.Children.Add(_overlay);
             MissingTribe.OnLoad(_overlay);
 
@@ -130,6 +146,8 @@ namespace MissingTribe
         public void OnUpdate()
         {
             // called every ~100ms
+            // this needs to be done event based, not on update
+            //MissingTribe.OnUpdate();
         }
 
         public string Name => "Missing Tribe";
