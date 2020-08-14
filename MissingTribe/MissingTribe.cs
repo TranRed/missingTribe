@@ -1,10 +1,13 @@
 ﻿using System;
+using System.IO;
 using System.Windows.Controls;
 using Hearthstone_Deck_Tracker.Plugins;
 using Hearthstone_Deck_Tracker.API;
 using Hearthstone_Deck_Tracker.Enums;
 using Hearthstone_Deck_Tracker.Hearthstone;
 using HearthDb.Enums;
+using Newtonsoft.Json;
+using MahApps.Metro.Controls;
 
 namespace MissingTribe
 {
@@ -105,15 +108,31 @@ namespace MissingTribe
     public class MissingTribePlugin : IPlugin
     {
         private Overlay _overlay;
+        private Settings _settings;
+        private Flyout _settingsFlyout;
+        private SettingsControl _settingsControl;
+
         public void OnLoad()
         {
-            _overlay = new Overlay();
-            Core.OverlayCanvas.Children.Add(_overlay);
-            MissingTribe.OnLoad(_overlay);
 
             // Triggered upon startup and when the user ticks the plugin on
             GameEvents.OnTurnStart.Add(MissingTribe.TurnStart);
             GameEvents.OnInMenu.Add(MissingTribe.InMenu);
+
+            try
+            {
+                _settings = JsonConvert.DeserializeObject<Settings>(File.ReadAllText(Settings._configLocation));
+            }
+            catch
+            {
+                _settings = new Settings();
+            }
+
+            _overlay = new Overlay(_settings);
+            Core.OverlayCanvas.Children.Add(_overlay);
+            MissingTribe.OnLoad(_overlay);
+
+            createSettingsFlyout(_settings, _overlay);
         }
 
         public void OnUnload()
@@ -126,11 +145,33 @@ namespace MissingTribe
         public void OnButtonPress()
         {
             // Triggered when the user clicks your button in the plugin list
+            _settingsFlyout.IsOpen = true;
         }
 
         public void OnUpdate()
         {
             // called every ~100ms
+        }
+
+        private void createSettingsFlyout(Settings settings, Overlay overlay)
+        {
+            _settingsFlyout = new Flyout();
+            _settingsFlyout.Name = "BgSettingsFlyout";
+            _settingsFlyout.Position = Position.Left;
+            Panel.SetZIndex(_settingsFlyout, 100);
+            _settingsFlyout.Header = "Missing Tribes Settings";
+            _settingsControl = new SettingsControl(settings, overlay);
+            _settingsFlyout.Content = _settingsControl;
+
+            _settingsFlyout.ClosingFinished += (sender, args) =>
+            {
+                settings.x = _settingsControl.x.Text;
+                settings.y = _settingsControl.y.Text;
+                settings.size = _settingsControl.size.Text;
+                settings.save();
+            };
+
+            Core.MainWindow.Flyouts.Items.Add(_settingsFlyout);
         }
 
         public string Name => "Missing Tribe";

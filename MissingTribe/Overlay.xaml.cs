@@ -1,5 +1,6 @@
 
 using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -15,17 +16,13 @@ namespace MissingTribe
         public const string noBeasts = "noBeasts";
         public const string noPirates = "noPirates";
         public const string noDragons = "noDragons";
-        public double overlayWidth { get; set; }
+        private Settings _settings;
 
-        public Overlay(double canvasWidth)
+        public Overlay(Settings settings)
         {
             InitializeComponent();
-            overlayWidth = canvasWidth;
+            _settings = settings;
             showMissingTribe(dontShow);
-        }
-
-        public void setWidth(double canvasWidth){
-            overlayWidth = canvasWidth;
         }
 
         public void showMissingTribe(string imageName)
@@ -33,9 +30,18 @@ namespace MissingTribe
             string url = "pack://application:,,,/MissingTribe;component/images/" + imageName + ".png";
             Uri imageUri = new Uri(url, UriKind.Absolute);
             banned.Source = new BitmapImage(imageUri);
-            banned.Margin = new Thickness(1660, 270, 0, 0);
-            banned.Height = 150;
-            banned.Width = 150;
+            banned.Margin = new Thickness(int.Parse(_settings.x), int.Parse(_settings.y), 0, 0);
+            banned.Height = int.Parse(_settings.size);
+            banned.Width = int.Parse(_settings.size);
+        }
+
+
+        public async void testImage()
+        {
+            showMissingTribe(noMechs);
+            //lol I don't even know what I'm doing here
+            await Task.Delay(3000);
+            showMissingTribe(dontShow);
         }
     }
 }
