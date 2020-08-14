@@ -7,6 +7,6 @@
              xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              mc:Ignorable="d" >
     <StackPanel Orientation="Horizontal">
-    <Image Name="banned" Margin="1660,270,0,0" Width="150" Height="150"/>
+    <Image Name="banned"/>
     </StackPanel>
 </UserControl>

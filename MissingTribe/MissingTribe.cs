@@ -39,21 +39,6 @@ namespace MissingTribe
             }
         }
 
-        internal static void OnUpdate()
-        {
-            if (Core.Game != null)
-            {
-                if (Core.Game.CurrentGameMode == GameMode.Battlegrounds && Core.Game.GetTurnNumber() >= 1)
-                {
-                    if (Core.OverlayCanvas.ActualWidth != _overlay.overlayWidth)
-                    {
-                        _overlay.overlayWidth = Core.OverlayCanvas.ActualWidth;
-                        _showMissingTribe();
-                    }
-                }
-            }
-        }
-
         private static void _showMissingTribe()
         {
 
@@ -122,7 +107,7 @@ namespace MissingTribe
         private Overlay _overlay;
         public void OnLoad()
         {
-            _overlay = new Overlay(Core.OverlayCanvas.ActualWidth);
+            _overlay = new Overlay();
             Core.OverlayCanvas.Children.Add(_overlay);
             MissingTribe.OnLoad(_overlay);
 
@@ -146,19 +131,17 @@ namespace MissingTribe
         public void OnUpdate()
         {
             // called every ~100ms
-            // this needs to be done event based, not on update
-            //MissingTribe.OnUpdate();
         }
 
         public string Name => "Missing Tribe";
 
         public string Description => "Shows the missing/banned tribe";
 
-        public string ButtonText => "BUTTON TEXT";
+        public string ButtonText => "Settings";
 
         public string Author => "TranRed";
 
-        public Version Version => new Version(0, 2, 0);
+        public Version Version => new Version(0, 5, 0);
 
         public MenuItem MenuItem => null;
 

@@ -33,14 +33,9 @@ namespace MissingTribe
             string url = "pack://application:,,,/MissingTribe;component/images/" + imageName + ".png";
             Uri imageUri = new Uri(url, UriKind.Absolute);
             banned.Source = new BitmapImage(imageUri);
-            if(overlayWidth < 1800)
-            {
-                banned.Margin = new Thickness(overlayWidth - 160, 270, 0, 0);
-            }
-            else
-            {
-                banned.Margin = new Thickness(1660, 270, 0, 0);
-            }
+            banned.Margin = new Thickness(1660, 270, 0, 0);
+            banned.Height = 150;
+            banned.Width = 150;
         }
     }
 }
