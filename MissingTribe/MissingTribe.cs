@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Windows.Controls;
+using System.Collections.Generic;
 using Hearthstone_Deck_Tracker.Plugins;
 using Hearthstone_Deck_Tracker.API;
 using Hearthstone_Deck_Tracker.Enums;
@@ -17,13 +18,15 @@ namespace MissingTribe
 
         internal static void InMenu()
         {
-            _overlay.showMissingTribe(Overlay.dontShow);
+            _overlay.showMissingTribe(Overlay.dontShow, 1);
+            _overlay.showMissingTribe(Overlay.dontShow, 2);
         }
 
         internal static void OnLoad(Overlay overlay)
         {
             _overlay = overlay;
-            _overlay.showMissingTribe(Overlay.dontShow);
+            _overlay.showMissingTribe(Overlay.dontShow, 1);
+            _overlay.showMissingTribe(Overlay.dontShow, 2);
             if (Core.Game != null)
             {
                 if (Core.Game.CurrentGameMode == GameMode.Battlegrounds && Core.Game.GetTurnNumber() >= 1)
@@ -45,62 +48,48 @@ namespace MissingTribe
         private static void _showMissingTribe()
         {
 
-            bool murlocsBanned = true;
-            bool demonsBanned = true;
-            bool mechsBanned = true;
-            bool beastsBanned = true;
-            bool piratesBanned = true;
-            bool dragonsBanned = true;
+            HashSet<Race> bannedTribes = new HashSet<Race>();
+            bannedTribes.Add(Race.MURLOC);
+            bannedTribes.Add(Race.DEMON);
+            bannedTribes.Add(Race.MECHANICAL);
+            bannedTribes.Add(Race.BEAST);
+            bannedTribes.Add(Race.PIRATE);
+            bannedTribes.Add(Race.DRAGON);
+            bannedTribes.Add(Race.ELEMENTAL);
+            int i = 0;
 
             var tribes = BattlegroundsUtils.GetAvailableRaces(Core.Game.CurrentGameStats.GameId);
             foreach (var tribe in tribes)
             {
+                bannedTribes.Remove(tribe);
+            }
 
-                switch (tribe)
+            foreach (var bannedTribe in bannedTribes)
+            {
+                i += 1;
+                switch (bannedTribe)
                 {
                     case Race.MURLOC:
-                        murlocsBanned = false;
+                        _overlay.showMissingTribe(Overlay.noMurlocs, i);
                         break;
                     case Race.DEMON:
-                        demonsBanned = false;
+                        _overlay.showMissingTribe(Overlay.noDemons, i);
                         break;
                     case Race.MECHANICAL:
-                        mechsBanned = false;
+                        _overlay.showMissingTribe(Overlay.noMechs, i);
                         break;
                     case Race.BEAST:
-                        beastsBanned = false;
+                        _overlay.showMissingTribe(Overlay.noBeasts, i);
                         break;
                     case Race.PIRATE:
-                        piratesBanned = false;
+                        _overlay.showMissingTribe(Overlay.noPirates, i);
                         break;
                     case Race.DRAGON:
-                        dragonsBanned = false;
+                        _overlay.showMissingTribe(Overlay.noDragons, i);
                         break;
-                }
-
-                if (murlocsBanned)
-                {
-                    _overlay.showMissingTribe(Overlay.noMurlocs);
-                }
-                else if (demonsBanned == true)
-                {
-                    _overlay.showMissingTribe(Overlay.noDemons);
-                }
-                else if (mechsBanned == true)
-                {
-                    _overlay.showMissingTribe(Overlay.noMechs);
-                }
-                else if (beastsBanned == true)
-                {
-                    _overlay.showMissingTribe(Overlay.noBeasts);
-                }
-                else if (piratesBanned == true)
-                {
-                    _overlay.showMissingTribe(Overlay.noPirates);
-                }
-                else if (dragonsBanned == true)
-                {
-                    _overlay.showMissingTribe(Overlay.noDragons);
+                    case Race.ELEMENTAL:
+                        _overlay.showMissingTribe(Overlay.noElementals, i);
+                        break;
                 }
             }
         }
@@ -182,7 +171,7 @@ namespace MissingTribe
 
         public string Author => "TranRed";
 
-        public Version Version => new Version(0, 5, 0);
+        public Version Version => new Version(0, 5, 5);
 
         public MenuItem MenuItem => null;
 

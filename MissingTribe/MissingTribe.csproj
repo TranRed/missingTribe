@@ -98,5 +98,8 @@
     <Resource Include="images\noMurlocs.png" />
     <Resource Include="images\noPirates.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\noElementals.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
