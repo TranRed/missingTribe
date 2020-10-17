@@ -94,12 +94,14 @@
     <Resource Include="images\noBeasts.png" />
     <Resource Include="images\noDemons.png" />
     <Resource Include="images\noDragons.png" />
-    <Resource Include="images\noMechs.png" />
     <Resource Include="images\noMurlocs.png" />
     <Resource Include="images\noPirates.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\noElementals.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\noMechs.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
