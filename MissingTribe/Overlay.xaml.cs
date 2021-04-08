@@ -23,8 +23,7 @@ namespace MissingTribe
         {
             InitializeComponent();
             _settings = settings;
-            showMissingTribe(dontShow, 1);
-            showMissingTribe(dontShow, 2);
+            clearPanel();
         }
 
         public void showMissingTribe(string imageName, int tribeNumber)
@@ -32,34 +31,41 @@ namespace MissingTribe
             string url = "pack://application:,,,/MissingTribe;component/images/" + imageName + ".png";
             Uri imageUri = new Uri(url, UriKind.Absolute);
 
-            switch(tribeNumber)
+            Image bannedTribePic = new Image();
+            bannedTribePic.Source = new BitmapImage(imageUri);
+
+            switch (tribeNumber)
             {
                 case 1:
-                    banned1.Source = new BitmapImage(imageUri);
-                    banned1.Margin = new Thickness(int.Parse(_settings.x), int.Parse(_settings.y), 0, 0);
-                    banned1.Height = int.Parse(_settings.size);
-                    banned1.Width = int.Parse(_settings.size);
+                    bannedTribePic.Margin = new Thickness(int.Parse(_settings.x), int.Parse(_settings.y), 0, 0);
                     break;
-                case 2:
-                    banned2.Source = new BitmapImage(imageUri);
-                    banned2.Margin = new Thickness(10, int.Parse(_settings.y), 0, 0);
-                    banned2.Height = int.Parse(_settings.size);
-                    banned2.Width = int.Parse(_settings.size);
+                default:
+                    bannedTribePic.Margin = new Thickness(10, int.Parse(_settings.y), 0, 0);
                     break;
             }
-            
-            
+
+            bannedTribePic.Height = int.Parse(_settings.size);
+            bannedTribePic.Width = int.Parse(_settings.size);
+
+            bannedTribesPanel.Children.Add(bannedTribePic);
+
         }
 
 
         public async void testImage()
         {
+            clearPanel();
             showMissingTribe(noElementals, 1);
             showMissingTribe(noMechs, 2);
+
             //lol I don't even know what I'm doing here
             await Task.Delay(3000);
-            showMissingTribe(dontShow, 1);
-            showMissingTribe(dontShow, 2);
+            clearPanel();
+        }
+
+        public void clearPanel()
+        {
+            bannedTribesPanel.Children.Clear();
         }
     }
 }
