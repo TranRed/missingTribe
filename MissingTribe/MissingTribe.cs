@@ -18,8 +18,7 @@ namespace MissingTribe
 
         internal static void InMenu()
         {
-            _overlay.showMissingTribe(Overlay.dontShow, 1);
-            _overlay.showMissingTribe(Overlay.dontShow, 2);
+            _overlay.clearPanel();
         }
 
         internal static void OnLoad(Overlay overlay)

@@ -9,7 +9,6 @@ namespace MissingTribe
 {
     public partial class Overlay : UserControl
     {
-        public const string dontShow = "forsenCD";
         public const string noMurlocs = "noMurlocs";
         public const string noDemons = "noDemons";
         public const string noMechs = "noMechs";
