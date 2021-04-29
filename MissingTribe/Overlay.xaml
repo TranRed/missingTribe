@@ -6,9 +6,7 @@
              xmlns:local="clr-namespace:MissingTribe"                            
              xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              mc:Ignorable="d" >
-    <StackPanel x:Name="test" Orientation="Horizontal" Margin="0,0,1,0">
-        <Image Name="banned1"/>
-        <Image Name="banned2"/>
+    <StackPanel x:Name="bannedTribesPanel" Orientation="Horizontal" Margin="0,0,1,0">
     </StackPanel>
 
 </UserControl>

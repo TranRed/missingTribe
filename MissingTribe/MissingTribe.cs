@@ -18,15 +18,13 @@ namespace MissingTribe
 
         internal static void InMenu()
         {
-            _overlay.showMissingTribe(Overlay.dontShow, 1);
-            _overlay.showMissingTribe(Overlay.dontShow, 2);
+            _overlay.clearPanel();
         }
 
         internal static void OnLoad(Overlay overlay)
         {
             _overlay = overlay;
-            _overlay.showMissingTribe(Overlay.dontShow, 1);
-            _overlay.showMissingTribe(Overlay.dontShow, 2);
+            _overlay.clearPanel();
             if (Core.Game != null)
             {
                 if (Core.Game.CurrentGameMode == GameMode.Battlegrounds && Core.Game.GetTurnNumber() >= 1)
@@ -47,7 +45,7 @@ namespace MissingTribe
 
         private static void _showMissingTribe()
         {
-
+           
             HashSet<Race> bannedTribes = new HashSet<Race>();
             bannedTribes.Add(Race.MURLOC);
             bannedTribes.Add(Race.DEMON);
@@ -57,6 +55,8 @@ namespace MissingTribe
             bannedTribes.Add(Race.DRAGON);
             bannedTribes.Add(Race.ELEMENTAL);
             int i = 0;
+
+            _overlay.clearPanel();
 
             var tribes = BattlegroundsUtils.GetAvailableRaces(Core.Game.CurrentGameStats.GameId);
             foreach (var tribe in tribes)
@@ -171,7 +171,7 @@ namespace MissingTribe
 
         public string Author => "TranRed";
 
-        public Version Version => new Version(0, 5, 5);
+        public Version Version => new Version(0, 7, 5);
 
         public MenuItem MenuItem => null;
 

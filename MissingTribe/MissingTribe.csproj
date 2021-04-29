@@ -90,7 +90,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="images\forsenCD.png" />
     <Resource Include="images\noBeasts.png" />
     <Resource Include="images\noDemons.png" />
     <Resource Include="images\noDragons.png" />
