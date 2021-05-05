@@ -34,11 +34,13 @@
     <Reference Include="ControlzEx, Version=3.0.2.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net462\ControlzEx.dll</HintPath>
     </Reference>
-    <Reference Include="HearthDb">
-      <HintPath>..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.13.1\HearthDb.dll</HintPath>
+    <Reference Include="HearthDb, Version=18.0.0.54613, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.14.11\HearthDb.dll</HintPath>
     </Reference>
-    <Reference Include="HearthstoneDeckTracker">
-      <HintPath>..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.13.1\HearthstoneDeckTracker.exe</HintPath>
+    <Reference Include="HearthstoneDeckTracker, Version=1.13.1.5042, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.14.11\HearthstoneDeckTracker.exe</HintPath>
     </Reference>
     <Reference Include="MahApps.Metro, Version=1.6.1.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.6.1\lib\net45\MahApps.Metro.dll</HintPath>
@@ -101,6 +103,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\noMechs.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\noQuilboars.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

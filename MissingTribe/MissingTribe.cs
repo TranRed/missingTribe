@@ -54,6 +54,8 @@ namespace MissingTribe
             bannedTribes.Add(Race.PIRATE);
             bannedTribes.Add(Race.DRAGON);
             bannedTribes.Add(Race.ELEMENTAL);
+            bannedTribes.Add(Race.QUILBOAR);
+
             int i = 0;
 
             _overlay.clearPanel();
@@ -89,6 +91,9 @@ namespace MissingTribe
                         break;
                     case Race.ELEMENTAL:
                         _overlay.showMissingTribe(Overlay.noElementals, i);
+                        break;
+                    case Race.QUILBOAR:
+                        _overlay.showMissingTribe(Overlay.noQuilboars, i);
                         break;
                 }
             }
@@ -171,7 +176,7 @@ namespace MissingTribe
 
         public string Author => "TranRed";
 
-        public Version Version => new Version(0, 7, 5);
+        public Version Version => new Version(0, 8, 0);
 
         public MenuItem MenuItem => null;
 

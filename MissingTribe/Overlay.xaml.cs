@@ -16,6 +16,7 @@ namespace MissingTribe
         public const string noPirates = "noPirates";
         public const string noDragons = "noDragons";
         public const string noElementals = "noElementals";
+        public const string noQuilboars = "noQuilboars";
         private Settings _settings;
 
         public Overlay(Settings settings)
@@ -56,6 +57,7 @@ namespace MissingTribe
             clearPanel();
             showMissingTribe(noElementals, 1);
             showMissingTribe(noMechs, 2);
+            showMissingTribe(noQuilboars, 3);
 
             //lol I don't even know what I'm doing here
             await Task.Delay(3000);
